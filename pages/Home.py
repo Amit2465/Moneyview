@@ -57,7 +57,7 @@ def main():
                  insights into individual company stocks, helping you stay informed about 
                  market trends and performance.''')
     with col3:
-        phone = load_image('images/phone_image.json')
+        phone = load_image('images/Phone_image.json')
         st_lottie(
             phone,
             speed=1,
