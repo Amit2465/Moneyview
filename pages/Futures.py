@@ -26,7 +26,7 @@ def page_title():
     
     colored_header(
         label="Futures",
-        description="Here you can explore our real-time stock market dashboard, providing live updates on market indices and breaking news alerts. Stay informed with curated insights into market developments and company news.",
+        description="Here you can explore our real-time futures market dashboard, offering live updates on futures contract prices and historical data via interactive line charts. Track current rates and observe historical trends with easy-to-understand visualizations. Stay informed with key information about different futures contracts and market movements.",
         color_name="violet-70",  
     )
     
@@ -315,6 +315,8 @@ def main():
     if st.button("Refresh"):
         update_metrics()
         st.experimental_rerun()  
+    
+    st.caption("Please hit refresh button to get the latest data")    
         
          
     # Display metrics

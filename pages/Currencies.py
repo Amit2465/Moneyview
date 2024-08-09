@@ -26,7 +26,10 @@ def page_title():
     
     colored_header(
         label="Currency Exchange",
-        description="Here you can explore our real-time stock market dashboard, providing live updates on market indices and breaking news alerts. Stay informed with curated insights into market developments and company news.",
+        description='''Here you can explore our real-time currency exchange dashboard, offering
+        live updates on currency rates from around the world. Monitor fluctuations and trends with
+        detailed charts and analytics. Stay informed with comprehensive insights into currency market
+        movements and global financial dynamics.''',
         color_name="violet-70",  
     )
     
@@ -272,6 +275,7 @@ def main():
         update_metrics()
         st.experimental_rerun()  
         
+    st.caption("Please hit refresh button to get the latest data")    
          
     # Display metrics
     col1, col2, col3, col4 = st.columns(4)

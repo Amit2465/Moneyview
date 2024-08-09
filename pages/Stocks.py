@@ -161,9 +161,17 @@ def get_stock_info1(stock_name):
     if len(information) < 8:
         return f"Failed to retrieve complete data for {stock_name}. Check the structure of the webpage."
     
+    if stock_name == "Tesla":
+        employee = 140473
+        founded = "Jul 1, 2003"
+        ceo = "Elon Musk"
+        return employee, founded, ceo
+    
     ceo = information[9]
     founded = information[10]
     employee = information[12]
+    
+    
     
     return ceo, founded, employee
     
@@ -216,7 +224,10 @@ def get_stock_price(stock_name):
         change_price = None
         changes_per = None
     
-    return price, f"{changes_per}%" 
+    if stock_name in ["TCS", "Infosys", "HDFC bank"]:
+        return price, f"{changes_per}%"
+    else:  
+        return f"$ {price}", f"{changes_per}%" 
 
 
 def plot_line_chart(x_axis, y_axis, index_name, interval):
@@ -308,7 +319,81 @@ def company_info(stock_name):
             various industries and is renowned for its innovation, extensive global reach, and strong
             focus on digital transformation. TCS is a major player in the IT sector, known for its
             robust delivery model and commitment to driving business growth through technology.'''
-        ) 
+        )
+    elif stock_name == 'Apple':
+        container3.caption('''Apple Inc. is a prominent global technology company headquartered in
+                           Cupertino, California. Known for its innovative hardware, including the
+                           iPhone, iPad, and Mac, Apple also offers a suite of software and services,
+                           such as iOS, macOS, and iCloud. Established in 1976, Apple is renowned for
+                           its design excellence, user-friendly products, and ecosystem integration,
+                           making it a leader in consumer electronics and technology.''')
+    
+    elif stock_name == 'Infosys':
+        container3.caption('''Infosys Limited is a global leader in IT services, consulting, and 
+                           business solutions headquartered in Bengaluru, India. Established in 1981,
+                           Infosys provides a broad spectrum of services including software development,
+                           systems integration, and consulting. Renowned for its innovation in 
+                           technology and digital transformation, Infosys serves clients worldwide 
+                           and is a major player in the IT services sector.''')
+    
+    elif stock_name == 'HDFC bank':
+        container3.caption('''HDFC Bank Limited is one of India’s leading private-sector banks, 
+                           headquartered in Mumbai. Established in 1994, HDFC Bank offers a wide range 
+                           of financial products and services including retail and wholesale banking,
+                           insurance, and investment services. Known for its customer-centric approach
+                           and robust financial services, HDFC Bank is a major player in the Indian 
+                           banking sector.''')
+    
+    elif stock_name == 'Nividia':
+        container3.caption('''Nvidia Corporation is a global leader in visual computing technology 
+                           headquartered in Santa Clara, California. Founded in 1993, Nvidia is renowned
+                           for its graphics processing units (GPUs) and AI hardware, serving markets 
+                           from gaming to data centers. The company’s innovations in graphics and
+                           artificial intelligence have solidified its position as a major technology
+                           driver.''')
+     
+    elif stock_name == 'Meta':
+        container3.caption('''Meta Platforms, Inc. (formerly Facebook) is a leading global technology
+                           company headquartered in Menlo Park, California. Established in 2004, Meta 
+                           focuses on building social media platforms, virtual reality, and augmented
+                           reality technologies. Known for its flagship platforms like Facebook, 
+                           Instagram, and WhatsApp, Meta drives innovation in digital communication and
+                           connectivity.''')
+    
+    elif stock_name == 'Amazon':
+        container3.caption('''Amazon.com, Inc. is a global e-commerce and technology giant headquartered
+                           in Seattle, Washington. Founded in 1994, Amazon offers a vast array of
+                           products and services, including online retail, cloud computing (AWS), and
+                           digital streaming. Known for its innovation and customer-centric approach, 
+                           Amazon is a major player in the global tech and retail industries.''')
+    
+    elif stock_name == 'Google':
+        container3.caption('''Google LLC is a leading technology company headquartered in Mountain View,
+                           California. Established in 1998, Google is renowned for its search engine and
+                           a wide range of products and services, including advertising, cloud computing,
+                           and digital services. Known for its innovation and influence in technology,
+                           Google is a major player in the global tech landscape.''')
+    
+    elif stock_name == 'SAP':
+        container3.caption('''SAP SE is a global enterprise software company headquartered in Walldorf,
+                           Germany. Founded in 1972, SAP specializes in enterprise resource planning
+                           (ERP) software, cloud solutions, and business technology platforms. Renowned
+                           for its comprehensive suite of business solutions, SAP supports companies
+                           in optimizing operations and driving digital transformation.''')
+    
+    elif stock_name == 'Tesla':
+        container3.caption('''Tesla, Inc. is an American electric vehicle and clean energy company
+                           headquartered in Palo Alto, California. Established in 2003, Tesla is known
+                           for its innovative electric cars, battery energy storage solutions, and solar
+                           energy products. The company’s focus on sustainable energy and cutting-edge
+                           technology has made it a major player in the automotive and energy sectors.''')
+    
+    elif stock_name == 'BlackRock':
+        container3.caption('''BlackRock, Inc. is a global investment management firm headquartered in
+                           New York City. Founded in 1988, BlackRock provides a range of investment and
+                           risk management services to institutional and individual investors. Known for
+                           its expertise in asset management and financial technology, BlackRock is a 
+                           leading player in the global investment industry.''')                                         
     
 
 def company_info2(stock_name):
@@ -354,6 +439,8 @@ def main():
         update_metrics(stock_name)
         st.session_state.last_refresh = time.time()
         st.experimental_rerun()
+    
+    st.caption("Please hit refresh button to get the latest data")    
     
     col1 , col2 = st.columns([1,4])
     with col1:

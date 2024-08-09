@@ -26,7 +26,7 @@ def page_title():
     
     colored_header(
         label="Crypto",
-        description="Here you can explore our real-time stock market dashboard, providing live updates on market indices and breaking news alerts. Stay informed with curated insights into market developments and company news.",
+        description="Here you can explore our real-time cryptocurrency dashboard, providing live updates on cryptocurrency prices and historical data through interactive line charts. Monitor current rates and view historical price trends with simple, clear visualizations. Stay informed with essential information about various cryptocurrencies.",
         color_name="violet-70",  
     )
     
@@ -262,6 +262,7 @@ def main():
         update_metrics()
         st.experimental_rerun()  
         
+    st.caption("Please hit refresh button to get the latest data")    
          
     # Display metrics
     col1, col2, col3, col4 = st.columns(4)

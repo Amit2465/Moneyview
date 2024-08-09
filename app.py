@@ -10,11 +10,26 @@ st.set_page_config(
     initial_sidebar_state='auto')
 
 
+hide_streamlit_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
+
+st.html("""
+  <style>
+    [alt=Logo] {
+      height: 2.8rem;
+    }
+  </style>
+        """)
+
+
 # set logo
 st.logo("Logo.svg")
-
-
-
 
 
 # removing extra padding
@@ -35,13 +50,13 @@ st.markdown("""
 # set pages
 p1 = st.Page("pages/Home.py", title="Home", icon=":material/home:")
 p2 = st.Page("pages/India.py", title="India", icon=":material/language:")
-p3 = st.Page("pages/US.py", title="USA", icon=":material/badge:")
-p4 = st.Page("pages/Europe.py", title="Europe", icon=":material/code:")
+p3 = st.Page("pages/US.py", title="USA", icon=":material/monitoring:")
+p4 = st.Page("pages/Europe.py", title="Europe", icon=":material/donut_large:")
 p5 = st.Page("pages/Stocks.py", title="Stocks", icon=":material/stacked_line_chart:")
 p6 = st.Page("pages/Currencies.py", title="Currencies", icon=":material/currency_exchange:")
 p7 = st.Page("pages/Crypto.py", title="Crypto", icon=":material/currency_bitcoin:")
 p8 = st.Page("pages/Futures.py", title="Futures", icon=":material/online_prediction:")
-pg = st.navigation([p1,p2, p3, p4, p5, p6, p7, p8])
+pg = st.navigation([p1,p5 ,p2 , p3, p4, p6, p7, p8])
 pg.run() 
 
 

@@ -168,7 +168,7 @@ def get_index_data(index_name, interval):
         container3.markdown("<hr style='margin-top: 0.7px; margin-bottom: 10px;'>", unsafe_allow_html=True)
         if index_name == "DOW Jones":
             container3.caption(
-                '''TThe Dow Jones Industrial Average (DJIA), often referred to simply as "the Dow," 
+                '''The Dow Jones Industrial Average (DJIA), often referred to simply as "the Dow," 
                 is one of the oldest and most widely recognized stock market indices in the world.
                 Established in 1896 by Charles Dow and Edward Jones, it tracks 30 large, publicly-owned
                 companies trading on the New York Stock Exchange (NYSE) and the NASDAQ. The DJIA is a 
@@ -284,7 +284,9 @@ def main():
     # Add a button to manually update the metrics
     if st.button("Refresh"):
         update_metrics()
-        st.experimental_rerun()  
+        st.experimental_rerun() 
+    
+    st.caption("Please hit refresh button to get the latest data")     
         
          
     # Display metrics

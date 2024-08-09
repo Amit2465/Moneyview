@@ -275,6 +275,8 @@ def main():
     if st.button("Refresh"):
         update_metrics()
         st.experimental_rerun()  
+    
+    st.caption("Please hit refresh button to get the latest data")    
         
          
     # Display metrics
