@@ -241,14 +241,14 @@ def update_metrics():
     nifty_it_price, nifty_it_changes = index_scraper("NIFTY_IT")
     
     # Store fetched values in session state
-    st.session_state.DJ_price = sense_price
-    st.session_state.DJ_changes = sensex_changes
-    st.session_state.SP_price = nifty_price
-    st.session_state.SP_changes = nifty_changes
-    st.session_state.NASDAQ_price = nifty_bank_price
-    st.session_state.NASDAQ_changes = nifty_bank_changes
-    st.session_state.Russell_price = nifty_it_price
-    st.session_state.Russell_changes = nifty_it_changes
+    st.session_state.sensex_price = sense_price
+    st.session_state.sensex_changes = sensex_changes
+    st.session_state.nifty_price = nifty_price
+    st.session_state.nifty_changes = nifty_changes
+    st.session_state.nifty_bank_price = nifty_bank_price
+    st.session_state.nifty_bank_changes = nifty_bank_changes
+    st.session_state.nifty_it_price = nifty_it_price
+    st.session_state.nifty_it_changes = nifty_it_changes
     
     
     
@@ -257,15 +257,15 @@ def main():
     st.markdown("</br>", unsafe_allow_html=True)
     
     # Initialize session state for metrics and interval
-    if 'DJ_price' not in st.session_state:
-        st.session_state.DJ_price = 0.0
-        st.session_state.DJ_changes = 0.0
-        st.session_state.SP_price = 0.0
-        st.session_state.SP_changes = 0.0
-        st.session_state.NASDAQ_price = 0.0
-        st.session_state.NASDAQ_changes = 0.0
-        st.session_state.Russell_price = 0.0
-        st.session_state.Russell_changes = 0.0
+    if 'sensex_price' not in st.session_state:
+        st.session_state.sensex_price = 0.0
+        st.session_state.sensex_changes = 0.0
+        st.session_state.nifty_price = 0.0
+        st.session_state.nifty_changes = 0.0
+        st.session_state.nifty_bank_price = 0.0
+        st.session_state.nifty_bank_changes = 0.0
+        st.session_state.nifty_it_price = 0.0
+        st.session_state.nifty_it_changes = 0.0
     
     if 'interval' not in st.session_state:
         st.session_state.interval = 'Year'
@@ -283,16 +283,16 @@ def main():
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         cont1 = st.container(border=True)
-        cont1.metric("Sensex", st.session_state.DJ_price, st.session_state.DJ_changes)
+        cont1.metric("Sensex", st.session_state.sensex_price, st.session_state.sensex_changes)
     with col2:
         cont2 = st.container(border=True)
-        cont2.metric("Nifty 50", st.session_state.SP_price, st.session_state.SP_changes)
+        cont2.metric("Nifty 50", st.session_state.nifty_price, st.session_state.nifty_changes)
     with col3:
         cont3 = st.container(border=True)
-        cont3.metric("Nifty bank", st.session_state.NASDAQ_price, st.session_state.NASDAQ_changes)
+        cont3.metric("Nifty bank", st.session_state.nifty_bank_price, st.session_state.nifty_bank_changes)
     with col4:
         cont4 = st.container(border=True)
-        cont4.metric("Nifty IT", st.session_state.Russell_price, st.session_state.Russell_changes)
+        cont4.metric("Nifty IT", st.session_state.nifty_it_price, st.session_state.nifty_it_changes)
     
     st.markdown("<hr>", unsafe_allow_html=True)    
 

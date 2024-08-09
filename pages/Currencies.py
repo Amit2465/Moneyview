@@ -234,20 +234,20 @@ def filter_data(data, interval):
     
 
 def update_metrics():
-    DJ_price, DJ_changes = index_scraper("USD/INR")
-    SP_price, SP_changes = index_scraper("EUR/INR")
-    NASDAQ_price, NASDAQ_changes = index_scraper("GBP/INR")
-    Russell_price, Russell_changes = index_scraper("AUD/INR")
+    ui_price, ui_changes = index_scraper("USD/INR")
+    ei_price, ei_changes = index_scraper("EUR/INR")
+    gi_price, gi_changes = index_scraper("GBP/INR")
+    ai_price, ai_changes = index_scraper("AUD/INR")
     
     # Store fetched values in session state
-    st.session_state.DJ_price = DJ_price
-    st.session_state.DJ_changes = DJ_changes
-    st.session_state.SP_price = SP_price
-    st.session_state.SP_changes = SP_changes
-    st.session_state.NASDAQ_price = NASDAQ_price
-    st.session_state.NASDAQ_changes = NASDAQ_changes
-    st.session_state.Russell_price = Russell_price
-    st.session_state.Russell_changes = Russell_changes
+    st.session_state.ui_price = ui_price
+    st.session_state.ui_changes = ui_changes
+    st.session_state.ei_price = ei_price
+    st.session_state.ei_changes = ei_changes
+    st.session_state.gi_price = gi_price
+    st.session_state.gi_changes = gi_changes
+    st.session_state.ai_price = ai_price
+    st.session_state.ai_changes = ai_changes
 
 
 def main():
@@ -255,15 +255,15 @@ def main():
     st.markdown("</br>", unsafe_allow_html=True)
     
     # Initialize session state for metrics and interval
-    if 'DJ_price' not in st.session_state:
-        st.session_state.DJ_price = 0.0
-        st.session_state.DJ_changes = 0.0
-        st.session_state.SP_price = 0.0
-        st.session_state.SP_changes = 0.0
-        st.session_state.NASDAQ_price = 0.0
-        st.session_state.NASDAQ_changes = 0.0
-        st.session_state.Russell_price = 0.0
-        st.session_state.Russell_changes = 0.0      
+    if 'ui_price' not in st.session_state:
+        st.session_state.ui_price = 0.0
+        st.session_state.ui_changes = 0.0
+        st.session_state.ei_price = 0.0
+        st.session_state.ei_changes = 0.0
+        st.session_state.gi_price = 0.0
+        st.session_state.gi_changes = 0.0
+        st.session_state.ai_price = 0.0
+        st.session_state.ai_changes = 0.0      
     
     if 'last_refresh' not in st.session_state:
         st.session_state.last_refresh = time.time()   
@@ -281,16 +281,16 @@ def main():
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         cont1 = st.container(border=True)
-        cont1.metric("USD/INR", st.session_state.DJ_price, st.session_state.DJ_changes)
+        cont1.metric("USD/INR", st.session_state.ui_price, st.session_state.ui_changes)
     with col2:
         cont2 = st.container(border=True)
-        cont2.metric("EUR/INR", st.session_state.SP_price, st.session_state.SP_changes)
+        cont2.metric("EUR/INR", st.session_state.ei_price, st.session_state.ei_changes)
     with col3:
         cont3 = st.container(border=True)
-        cont3.metric("GBP/INR", st.session_state.NASDAQ_price, st.session_state.NASDAQ_changes)
+        cont3.metric("GBP/INR", st.session_state.gi_price, st.session_state.gi_changes)
     with col4:
         cont4 = st.container(border=True)
-        cont4.metric("AUD/INR)", st.session_state.Russell_price, st.session_state.Russell_changes)
+        cont4.metric("AUD/INR)", st.session_state.ai_price, st.session_state.ai_changes)
     
     st.markdown("<hr>", unsafe_allow_html=True)    
     selected_index = st.selectbox("Select an index", ["USD/INR", "EUR/INR", "GBP/INR", "AUD/INR"], key="index")

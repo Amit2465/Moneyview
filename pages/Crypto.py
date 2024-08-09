@@ -221,20 +221,20 @@ def filter_data(data, interval):
     
 
 def update_metrics():
-    DJ_price, DJ_changes = index_scraper("Bitcoin")
-    SP_price, SP_changes = index_scraper("Ethereum")
-    NASDAQ_price, NASDAQ_changes = index_scraper("Cardano")
-    Russell_price, Russell_changes = index_scraper("Dogecoin")
+    bitcoin_price, bitcoin_changes = index_scraper("Bitcoin")
+    ethereum_price, ethereum_changes = index_scraper("Ethereum")
+    cardano_price, cardano_changes = index_scraper("Cardano")
+    Dogecoin_price, Dogecoin_changes = index_scraper("Dogecoin")
     
     # Store fetched values in session state
-    st.session_state.DJ_price = DJ_price
-    st.session_state.DJ_changes = DJ_changes
-    st.session_state.SP_price = SP_price
-    st.session_state.SP_changes = SP_changes
-    st.session_state.NASDAQ_price = NASDAQ_price
-    st.session_state.NASDAQ_changes = NASDAQ_changes
-    st.session_state.Russell_price = Russell_price
-    st.session_state.Russell_changes = Russell_changes
+    st.session_state.bitcoin_price = bitcoin_price
+    st.session_state.bitcoin_changes = bitcoin_changes
+    st.session_state.ethereum_price = ethereum_price
+    st.session_state.ethereum_changes = ethereum_changes
+    st.session_state.cardano_price = cardano_price
+    st.session_state.cardano_changes = cardano_changes
+    st.session_state.Dogecoin_price = Dogecoin_price
+    st.session_state.Dogecoin_changes = Dogecoin_changes
 
 
 def main():
@@ -242,15 +242,15 @@ def main():
     st.markdown("</br>", unsafe_allow_html=True)
     
     # Initialize session state for metrics and interval
-    if 'DJ_price' not in st.session_state:
-        st.session_state.DJ_price = 0.0
-        st.session_state.DJ_changes = 0.0
-        st.session_state.SP_price = 0.0
-        st.session_state.SP_changes = 0.0
-        st.session_state.NASDAQ_price = 0.0
-        st.session_state.NASDAQ_changes = 0.0
-        st.session_state.Russell_price = 0.0
-        st.session_state.Russell_changes = 0.0      
+    if 'bitcoin_price' not in st.session_state:
+        st.session_state.bitcoin_price = 0.0
+        st.session_state.bitcoin_changes = 0.0
+        st.session_state.ethereum_price = 0.0
+        st.session_state.ethereum_changes = 0.0
+        st.session_state.cardano_price = 0.0
+        st.session_state.cardano_changes = 0.0
+        st.session_state.Dogecoin_price = 0.0
+        st.session_state.Dogecoin_changes = 0.0      
     
     if 'last_refresh' not in st.session_state:
         st.session_state.last_refresh = time.time()
@@ -268,16 +268,16 @@ def main():
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         cont1 = st.container(border=True)
-        cont1.metric("Bitcoin (BTC/INR)", st.session_state.DJ_price, st.session_state.DJ_changes)
+        cont1.metric("Bitcoin (BTC/INR)", st.session_state.bitcoin_price, st.session_state.bitcoin_changes)
     with col2:
         cont2 = st.container(border=True)
-        cont2.metric("Ethereum (ETH/INR)", st.session_state.SP_price, st.session_state.SP_changes)
+        cont2.metric("Ethereum (ETH/INR)", st.session_state.ethereum_price, st.session_state.ethereum_changes)
     with col3:
         cont3 = st.container(border=True)
-        cont3.metric("Cardano (ADA/INR)", st.session_state.NASDAQ_price, st.session_state.NASDAQ_changes)
+        cont3.metric("Cardano (ADA/INR)", st.session_state.cardano_price, st.session_state.cardano_changes)
     with col4:
         cont4 = st.container(border=True)
-        cont4.metric("Dogecoin (DOGE/INR)", st.session_state.Russell_price, st.session_state.Russell_changes)
+        cont4.metric("Dogecoin (DOGE/INR)", st.session_state.Dogecoin_price, st.session_state.Dogecoin_changes)
     
     st.markdown("<hr>", unsafe_allow_html=True)    
     selected_index = st.selectbox("Select an index", ["Bitcoin", "Ethereum"], key="index")

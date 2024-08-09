@@ -234,20 +234,20 @@ def filter_data(data, interval):
     
 
 def update_metrics():
-    DJ_price, DJ_changes = index_scraper("DAX")
-    SP_price, SP_changes = index_scraper("FTSE 100")
-    NASDAQ_price, NASDAQ_changes = index_scraper("CAC 40")
-    Russell_price, Russell_changes = index_scraper("IBEX 35")
+    Dax_price, Dax_changes = index_scraper("DAX")
+    ftse_price, ftse_changes = index_scraper("FTSE 100")
+    cac_price, cac_changes = index_scraper("CAC 40")
+    ibex_price, ibex_changes = index_scraper("IBEX 35")
     
     # Store fetched values in session state
-    st.session_state.DJ_price = DJ_price
-    st.session_state.DJ_changes = DJ_changes
-    st.session_state.SP_price = SP_price
-    st.session_state.SP_changes = SP_changes
-    st.session_state.NASDAQ_price = NASDAQ_price
-    st.session_state.NASDAQ_changes = NASDAQ_changes
-    st.session_state.Russell_price = Russell_price
-    st.session_state.Russell_changes = Russell_changes
+    st.session_state.Dax_price = Dax_price
+    st.session_state.Dax_changes = Dax_changes
+    st.session_state.ftse_price = ftse_price
+    st.session_state.ftse_changes = ftse_changes
+    st.session_state.cac_price = cac_price
+    st.session_state.cac_changes = cac_changes
+    st.session_state.ibex_price = ibex_price
+    st.session_state.ibex_changes = ibex_changes
 
 
 def main():
@@ -255,15 +255,15 @@ def main():
     st.markdown("</br>", unsafe_allow_html=True)
     
     # Initialize session state for metrics and interval
-    if 'DJ_price' not in st.session_state:
-        st.session_state.DJ_price = 0.0
-        st.session_state.DJ_changes = 0.0
-        st.session_state.SP_price = 0.0
-        st.session_state.SP_changes = 0.0
-        st.session_state.NASDAQ_price = 0.0
-        st.session_state.NASDAQ_changes = 0.0
-        st.session_state.Russell_price = 0.0
-        st.session_state.Russell_changes = 0.0      
+    if 'Dax_price' not in st.session_state:
+        st.session_state.Dax_price = 0.0
+        st.session_state.Dax_changes = 0.0
+        st.session_state.ftse_price = 0.0
+        st.session_state.ftse_changes = 0.0
+        st.session_state.cac_price = 0.0
+        st.session_state.cac_changes = 0.0
+        st.session_state.ibex_price = 0.0
+        st.session_state.ibex_changes = 0.0      
     
     
     if 'last_refresh' not in st.session_state:
@@ -283,16 +283,16 @@ def main():
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         cont1 = st.container(border=True)
-        cont1.metric("DAX", st.session_state.DJ_price, st.session_state.DJ_changes)
+        cont1.metric("DAX", st.session_state.Dax_price, st.session_state.Dax_changes)
     with col2:
         cont2 = st.container(border=True)
-        cont2.metric("FTSE 100", st.session_state.SP_price, st.session_state.SP_changes)
+        cont2.metric("FTSE 100", st.session_state.ftse_price, st.session_state.ftse_changes)
     with col3:
         cont3 = st.container(border=True)
-        cont3.metric("CAC 40", st.session_state.NASDAQ_price, st.session_state.NASDAQ_changes)
+        cont3.metric("CAC 40", st.session_state.cac_price, st.session_state.cac_changes)
     with col4:
         cont4 = st.container(border=True)
-        cont4.metric("IBEX 35", st.session_state.Russell_price, st.session_state.Russell_changes)
+        cont4.metric("IBEX 35", st.session_state.ibex_price, st.session_state.ibex_changes)
     
     st.markdown("<hr>", unsafe_allow_html=True)    
     selected_index = st.selectbox("Select an index", ["DAX", "FTSE 100", "CAC 40", "IBEX 35"], key="index1")
