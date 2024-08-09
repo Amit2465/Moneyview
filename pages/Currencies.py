@@ -2,6 +2,7 @@ import streamlit as st
 import requests
 import time
 import pandas as pd
+import os
 from bs4 import BeautifulSoup
 from streamlit_extras.colored_header import colored_header
 import plotly.graph_objects as go
@@ -30,11 +31,27 @@ def page_title():
     )
     
     
-@st.cache_data 
+@st.cache_data
 def load_data(file_name):
-    file_name = file_name.replace("/"," ")
-    data = pd.read_csv(f"Index_data\{file_name}.csv", header=0)
-    return data
+    try:
+        # Replace any slashes in the file name with spaces
+        sanitized_file_name = file_name.replace("/", " ")
+        
+        # Construct the path to the data file
+        file_path = os.path.join("Index_data", f"{sanitized_file_name}.csv")
+        
+        # Ensure the file exists
+        if not os.path.exists(file_path):
+            st.error(f"File not found: {file_path}")
+            return None
+        
+        # Load the data
+        data = pd.read_csv(file_path, header=0)
+        return data
+    
+    except Exception as e:
+        st.error(f"An error occurred while loading the data: {e}")
+        return None
 
 
 def get_index_info(index_name):
@@ -248,7 +265,7 @@ def main():
     if 'last_refresh' not in st.session_state:
         st.session_state.last_refresh = time.time()   
     if 'interval' not in st.session_state:
-        st.session_state.interval = 'Day'     
+        st.session_state.interval = 'Year'     
                 
     # Add a button to manually update the metrics
     if st.button("Refresh"):

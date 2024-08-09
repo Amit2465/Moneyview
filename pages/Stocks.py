@@ -5,6 +5,7 @@ import time
 from bs4 import BeautifulSoup
 from streamlit_extras.colored_header import colored_header
 import plotly.graph_objects as go
+import os
 
 
 
@@ -29,10 +30,24 @@ def page_title():
         color_name="violet-70",
     )
 
-@st.cache_data 
+@st.cache_data
 def load_data(file_name):
-    data = pd.read_csv(f"Index_data\{file_name}.csv", header=0)
-    return data
+    try:
+        # Construct the path to the data file
+        file_path = os.path.join("Index_data", f"{file_name}.csv")
+        
+        # Ensure the file exists
+        if not os.path.exists(file_path):
+            st.error(f"File not found: {file_path}")
+            return None
+        
+        # Load the data
+        data = pd.read_csv(file_path, header=0)
+        return data
+    
+    except Exception as e:
+        st.error(f"An error occurred while loading the data: {e}")
+        return None
 
 # get stock information
 def get_stock_info(stock_name):
@@ -267,7 +282,7 @@ def main():
     if 'last_refresh' not in st.session_state:
         st.session_state.last_refresh = time.time()
     if 'interval' not in st.session_state:
-        st.session_state.interval = 'Day'    
+        st.session_state.interval = 'Year'    
         
     stock_name = st.selectbox("Select a stock", ["TCS"])    
     interval = st.session_state.interval    
