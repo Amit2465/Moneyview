@@ -146,15 +146,15 @@ def get_index_data(index_name, interval):
         with col1:
             if st.button("Day"):
                 st.session_state.interval = 'Day'
-                st.experimental_rerun()
+                st.rerun()
         with col2:
             if st.button("Month"):
                 st.session_state.interval = 'Month'
-                st.experimental_rerun()
+                st.rerun()
         with col3:
             if st.button("Year"):
                 st.session_state.interval = 'Year'
-                st.experimental_rerun()
+                st.rerun()
         with col4:
             pass  
         # Plot the chart
@@ -284,7 +284,7 @@ def main():
     # Add a button to manually update the metrics
     if st.button("Refresh"):
         update_metrics()
-        st.experimental_rerun() 
+        st.rerun() 
     
     st.caption("Please hit refresh button to get the latest data")     
         
@@ -315,7 +315,7 @@ def main():
     if time.time() - last_refresh > 10:
         update_metrics()
         st.session_state.last_refresh = time.time()
-        st.experimental_rerun() 
+        st.rerun() 
     
     
     
