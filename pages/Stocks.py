@@ -48,11 +48,52 @@ def load_data(file_name):
     except Exception as e:
         st.error(f"An error occurred while loading the data: {e}")
         return None
+    
+
+def download_data(file_name):
+    try:
+        # Construct the path to the data file
+        file_path = os.path.join("Index_data", f"{file_name}.csv")
+        
+        # Ensure the file exists
+        if not os.path.exists(file_path):
+            st.error(f"File not found: {file_path}")
+            return
+        
+        # Load the data into a DataFrame
+        data = pd.read_csv(file_path)
+
+        # Convert DataFrame to CSV for download
+        csv_data = data.to_csv(index=False)
+        
+        # Provide download button
+        st.download_button(
+            label='Download',
+            data=csv_data,
+            file_name=f'{file_name}.csv',
+            mime='text/csv'
+        )
+        
+    except Exception as e:
+        st.error(f"An error occurred while loading the data: {e}")
+     
+    
 
 # get stock information
 def get_stock_info(stock_name):
     stock_urls = {
-        "TCS": "https://www.google.com/finance/quote/TCS:NSE"
+        "TCS": "https://www.google.com/finance/quote/TCS:NSE",
+        "BlackRock": "https://www.google.com/finance/quote/BLK:NYSE",
+        "Meta": "https://www.google.com/finance/quote/META:NASDAQ",
+        "Google": "https://www.google.com/finance/quote/GOOG:NASDAQ",
+        "Amazon": "https://www.google.com/finance/quote/AMZN:NASDAQ",
+        "Nividia": "https://www.google.com/finance/quote/NVDA:NASDAQ",
+        "Apple": "https://www.google.com/finance/quote/AAPL:NASDAQ",
+        "SAP": "https://www.google.com/finance/quote/SAP:ETR",
+        "Infosys": "https://www.google.com/finance/quote/INFY:NSE",
+        "Tesla": "https://www.google.com/finance/quote/TSLA:NASDAQ",
+        "HDFC bank": "https://www.google.com/finance/quote/HDFCBANK:NSE"
+        
     }
 
     url = stock_urls.get(stock_name)
@@ -88,7 +129,18 @@ def get_stock_info(stock_name):
 
 def get_stock_info1(stock_name):
     stock_urls = {
-        "TCS": "https://www.google.com/finance/quote/TCS:NSE"
+        "TCS": "https://www.google.com/finance/quote/TCS:NSE",
+        "BlackRock": "https://www.google.com/finance/quote/BLK:NYSE",
+        "Meta": "https://www.google.com/finance/quote/META:NASDAQ",
+        "Google": "https://www.google.com/finance/quote/GOOG:NASDAQ",
+        "Amazon": "https://www.google.com/finance/quote/AMZN:NASDAQ",
+        "Nividia": "https://www.google.com/finance/quote/NVDA:NASDAQ",
+        "Apple": "https://www.google.com/finance/quote/AAPL:NASDAQ",
+        "SAP": "https://www.google.com/finance/quote/SAP:ETR",
+        "Infosys": "https://www.google.com/finance/quote/INFY:NSE",
+        "Tesla": "https://www.google.com/finance/quote/TSLA:NASDAQ",
+        "HDFC bank": "https://www.google.com/finance/quote/HDFCBANK:NSE"
+        
     }
 
     url = stock_urls.get(stock_name)
@@ -122,7 +174,18 @@ def get_stock_info1(stock_name):
 # get stock price
 def get_stock_price(stock_name):
     stock_urls = {
-        "TCS": "https://www.google.com/finance/quote/TCS:NSE"
+        "TCS": "https://www.google.com/finance/quote/TCS:NSE",
+        "BlackRock": "https://www.google.com/finance/quote/BLK:NYSE",
+        "Meta": "https://www.google.com/finance/quote/META:NASDAQ",
+        "Google": "https://www.google.com/finance/quote/GOOG:NASDAQ",
+        "Amazon": "https://www.google.com/finance/quote/AMZN:NASDAQ",
+        "Nividia": "https://www.google.com/finance/quote/NVDA:NASDAQ",
+        "Apple": "https://www.google.com/finance/quote/AAPL:NASDAQ",
+        "SAP": "https://www.google.com/finance/quote/SAP:ETR",
+        "Infosys": "https://www.google.com/finance/quote/INFY:NSE",
+        "Tesla": "https://www.google.com/finance/quote/TSLA:NASDAQ",
+        "HDFC bank": "https://www.google.com/finance/quote/HDFCBANK:NSE"
+        
     }
 
     url = stock_urls.get(stock_name)
@@ -277,14 +340,14 @@ def main():
     # Initialize the session state for metrics and interval
     if 'stock_price' not in st.session_state:
         st.session_state.stock_price = 0
-    if 'stock_exchange' not in st.session_state:
+    if 'stock_exchang' not in st.session_state:
         st.session_state.stock_exchang = 0
     if 'last_refresh' not in st.session_state:
         st.session_state.last_refresh = time.time()
     if 'interval' not in st.session_state:
         st.session_state.interval = 'Year'    
         
-    stock_name = st.selectbox("Select a stock", ["TCS"])    
+    stock_name = st.selectbox("Select a stock", ["TCS", "Apple", "Infosys", "HDFC bank", "Nividia", "Meta", "Amazon", "Google", "SAP", "Tesla", "BlackRock"])    
     interval = st.session_state.interval    
     
     if st.button("Refresh"):
@@ -297,7 +360,18 @@ def main():
         container1 = st.container(border=True)    
         container1.metric(label=f"{stock_name}", value=st.session_state.stock_price, delta=st.session_state.stock_exchang)
     with col2:
-        pass    
+        container2 = st.container(border=True)
+        with container2:
+            col8, col9 = st.columns([1,4.4])
+            with col8:
+                st.markdown(f"{stock_name}")
+                download_data(stock_name)
+            with col9:
+                st.write(f''' Click the download button below to download the {stock_name} stock data in CSV format
+                         for your analysis''')      
+                st.caption("Note: Stock data last updated on 09/08/2024")            
+                 
+            
     
     get_index_data(stock_name, interval)
     

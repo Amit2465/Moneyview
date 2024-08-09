@@ -82,7 +82,8 @@ def index_scraper(index_name):
 
 def get_index_info(index_name):
     index_name_underscore = index_name.replace(" ", "_")
-    if index_name_underscore == "SENSEX":
+    if index_name_underscore == "Sensex":
+        index_name_underscore = index_name_underscore.upper()
         url = f"https://www.google.com/finance/quote/{index_name_underscore}:INDEXBOM"
     else:
         url = f"https://www.google.com/finance/quote/{index_name_underscore}:INDEXNSE"
@@ -181,7 +182,7 @@ def get_index_data(index_name, interval):
         container3 = st.container(border=True)
         container3.write("About")
         container3.markdown("<hr style='margin-top: 0.7px; margin-bottom: 10px;'>", unsafe_allow_html=True)
-        if index_name == "SENSEX":
+        if index_name == "Sensex":
             container3.caption(
                 '''The SENSEX is a stock market index comprising 30 of the largest and most actively
                 traded stocks on the Bombay Stock Exchange (BSE). It is widely considered to be a 
@@ -190,7 +191,7 @@ def get_index_data(index_name, interval):
                 various sectors of the economy, providing a snapshot of the overall economic health 
                 and investor sentiment in India.'''
             )
-        elif index_name == "NIFTY 50":
+        elif index_name == "Nifty 50":
             container3.caption(
                 '''The NIFTY 50 is a stock market index that represents the performance of the 50 largest 
                 and most liquid Indian companies listed on the National Stock Exchange (NSE). It is one of 
@@ -199,7 +200,7 @@ def get_index_data(index_name, interval):
                 composition, covering various sectors of the economy.'''
             )
         
-        elif index_name == "NIFTY BANK":
+        elif index_name == "Nifty bank":
             container3.caption(
                 '''The NIFTY Bank Index is a stock market index that tracks the performance of the banking 
                 sector in India. It comprises the most liquid and large-cap banking stocks listed on the 
@@ -207,7 +208,7 @@ def get_index_data(index_name, interval):
                 to gauge the performance of the banking sector and the overall health of the Indian economy.'''
             )
                 
-        elif index_name == "NIFTY IT":
+        elif index_name == "Nifty IT":
             container3.caption(
                 '''The NIFTY IT Index is a stock market index that tracks the performance of the information 
                 technology (IT) sector in India. It comprises the most liquid and large-cap IT stocks listed on 
@@ -234,20 +235,20 @@ def get_index_data(index_name, interval):
 
 def update_metrics():
     # Fetch index data
-    DJ_price, DJ_changes = index_scraper("SENSEX")
-    SP_price, SP_changes = index_scraper("NIFTY_50")
-    NASDAQ_price, NASDAQ_changes = index_scraper("NIFTY_BANK")
-    Russell_price, Russell_changes = index_scraper("NIFTY_IT")
+    sense_price, sensex_changes = index_scraper("SENSEX")
+    nifty_price, nifty_changes = index_scraper("NIFTY_50")
+    nifty_bank_price, nifty_bank_changes = index_scraper("NIFTY_BANK")
+    nifty_it_price, nifty_it_changes = index_scraper("NIFTY_IT")
     
     # Store fetched values in session state
-    st.session_state.DJ_price = DJ_price
-    st.session_state.DJ_changes = DJ_changes
-    st.session_state.SP_price = SP_price
-    st.session_state.SP_changes = SP_changes
-    st.session_state.NASDAQ_price = NASDAQ_price
-    st.session_state.NASDAQ_changes = NASDAQ_changes
-    st.session_state.Russell_price = Russell_price
-    st.session_state.Russell_changes = Russell_changes
+    st.session_state.DJ_price = sense_price
+    st.session_state.DJ_changes = sensex_changes
+    st.session_state.SP_price = nifty_price
+    st.session_state.SP_changes = nifty_changes
+    st.session_state.NASDAQ_price = nifty_bank_price
+    st.session_state.NASDAQ_changes = nifty_bank_changes
+    st.session_state.Russell_price = nifty_it_price
+    st.session_state.Russell_changes = nifty_it_changes
     
     
     
@@ -280,21 +281,21 @@ def main():
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         cont1 = st.container(border=True)
-        cont1.metric("SENSEX", st.session_state.DJ_price, st.session_state.DJ_changes)
+        cont1.metric("Sensex", st.session_state.DJ_price, st.session_state.DJ_changes)
     with col2:
         cont2 = st.container(border=True)
-        cont2.metric("NIFTY 50", st.session_state.SP_price, st.session_state.SP_changes)
+        cont2.metric("Nifty 50", st.session_state.SP_price, st.session_state.SP_changes)
     with col3:
         cont3 = st.container(border=True)
-        cont3.metric("NIFT BANK", st.session_state.NASDAQ_price, st.session_state.NASDAQ_changes)
+        cont3.metric("Nifty bank", st.session_state.NASDAQ_price, st.session_state.NASDAQ_changes)
     with col4:
         cont4 = st.container(border=True)
-        cont4.metric("NIFTY IT", st.session_state.Russell_price, st.session_state.Russell_changes)
+        cont4.metric("Nifty IT", st.session_state.Russell_price, st.session_state.Russell_changes)
     
     st.markdown("<hr>", unsafe_allow_html=True)    
 
     # Selectbox for choosing index
-    selected_index = st.selectbox("Select an Index", ["SENSEX", "NIFTY 50", "NIFTY BANK", "NIFTY IT"])
+    selected_index = st.selectbox("Select an Index", ["Sensex", "Nifty 50", "Nifty bank", "Nifty IT"])
     interval = st.session_state.interval
 
     get_index_data(selected_index, interval)
