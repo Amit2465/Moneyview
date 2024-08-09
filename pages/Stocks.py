@@ -419,6 +419,9 @@ def company_info2(stock_name):
     cont4.markdown("</br>", unsafe_allow_html=True)
         
 
+def refresh_app():
+    st.rerun()
+
 
 def main():
     page_title()
@@ -432,7 +435,7 @@ def main():
     if 'interval' not in st.session_state:
         st.session_state.interval = 'Year'    
         
-    stock_name = st.selectbox("Select a stock", ["TCS", "Apple", "Infosys", "HDFC bank", "Nividia", "Meta", "Amazon", "Google", "SAP", "Tesla", "BlackRock"])    
+    stock_name = st.selectbox("Select a stock", ["TCS", "Apple", "Infosys", "HDFC bank", "Nividia", "Meta", "Amazon", "Google", "SAP", "Tesla", "BlackRock"], on_change=refresh_app)    
     interval = st.session_state.interval    
     
     if st.button("Refresh"):
